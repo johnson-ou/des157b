@@ -3,16 +3,16 @@
 
     const featuredProjects = [
         {
-            image: 'images/goldengate.jpg',
-            imageLight: 'images/seattle1.jpg',
+            image: './images/goldengate.jpg',
+            imageLight: './images/seattle1.jpg',
         },
         {
-            image: 'images/carnight.jpeg',
-            imageLight: 'images/seattle2.jpg',
+            image: './images/carnight.jpeg',
+            imageLight: './images/seattle2.jpg',
         },
         {
             image: './images/bluehour.jpg',
-            imageLight: 'images/seattle3.jpg',
+            imageLight: './images/seattle3.jpg',
         }
     ];
 
