@@ -11,7 +11,7 @@
             imageLight: 'images/seattle2.jpg',
         },
         {
-            image: 'images/bluehour.jpg',
+            image: './images/bluehour.jpg',
             imageLight: 'images/seattle3.jpg',
         }
     ];
