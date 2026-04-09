@@ -3,12 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home is...DES 157B!</title>
+    <title>Johnson Ou | DES 157B</title>
 
     <!-- Normalize CSS for browser compatability -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 
     <!-- Add link to any google fonts used here -->
+     <link href="https://fonts.googleapis.com"  rel="preconnect">
+     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
     <!-- My Styles -->
     <link href="styles.css" rel="stylesheet">
@@ -22,89 +27,27 @@
 </head>
 
 <body>
+  <main class="page-shell" id="banner">
+    <section class="hero">
+      <div class="intro">
+        <div class="intro-copy">
+          <h1>Johnson Ou</h1>
+          <p class="course">Interactive Media 3 &mdash; DES 157B</p>
+          <p class="term">Spring 2026</p>
+        </div>
 
-    <div id="container">
+        <button class="toggle-pill" id="themeToggle" type="button" aria-label="Toggle accent style" aria-pressed="false">
+          <span class="toggle-knob"><i class="fa-solid fa-lightbulb"></i></span>
+        </button>
+      </div>
 
-        <header>
+      <div class="project-strip" id="projectStrip" aria-label="Featured work"></div>
+    </section>
 
-            <h1>Johnson Ou</h1>
+    <section class="content-grid" id="contentGrid" aria-label="Course work sections"></section>
+  </in>
 
-            <h2>DES 157B - Interactive Media III - (term, year & section)</h2>
-
-            <!--this is for the interactive banner-->
-            <div id="banner">
-                <h3>This is my banner!</h3>
-            </div>
-
-        </header>
-
-        <main>
-
-            <section id="projects">
-
-                <h3>Ministudios</h3>
-                <nav>
-                    <ol>
-                        <li><a href="#">Blockbuster Video</a></li>
-                        <li><a href="#">Check Yourself</a></li>
-                        <li><a href="#">Library Liberty</a></li>
-                    </ol>
-                </nav>
-                <h3>Toolkit</h3>
-                <nav>
-                    <ol>
-                        <li><a href="#">Friends List</a></li>
-                    </ol>
-                </nav>
-
-            </section>
-
-            <section id="research">
-                <h3>Research</h3>
-                <nav>
-                    <ul>
-                        <li><a href="#">Brainstorm</a></li>
-                        <li><a href="#">Comparative Analysis</a></li>
-                        <li><a href="#">Annotated Bibliography</a></li>
-                        <li><a href="#">Feasibility Report</a></li>
-                        <li><a href="#">Usability Results</a></li>
-                    </ul>
-                </nav>
-
-            </section>
-
-            <section id="development">
-                <h3>Development</h3>
-                <nav>
-                    <ul>
-                        <li><a href="#">Proposal</a></li>
-                        <li><a href="#">Sketches</a></li>
-                        <li><a href="#">User Flows</a></li>
-                        <li><a href="#">Design Progress</a></li>
-                        <li><a href="#">LoFi Sketches</a></li>
-                        <li><a href="#">Version 1</a></li>
-                        <li><a href="#">Usability Test</a></li>
-                        <li><a href="#">Version 2</a></li>
-                    </ul>
-                </nav>
-            </section>
-
-            <section id="capstone">
-                <h3>Capstone</h3>
-                <nav>
-                    <ul>
-                        <li><a href="#">Case Study</a></li>
-                        <li><a href="#">Project</a></li>
-                    </ul>
-                </nav>
-            </section>
-
-            <button>switch</button>
-
-        </main>
-
-    </div>
-
+  <script src="script.js"></script>
 </body>
 
 </html>
