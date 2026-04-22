@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockbuster Video! — PRYVT concert</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <section>
+            <video id="myVideo" muted autoplay loop playsinline>
+                <source src="media/ifitsnotyou.webm" type="video/webm">
+                <source src="media/ifitsnotyou.mp4" type="video/mp4">
+                <p>Your browser doesn't support HTML5 video. Here is a
+                    <a href="media/ifitsnotyou.mp4">link to the video</a> instead.
+                </p>
+            </video>
+
+            <i class="fa-solid fa-compact-disc loader"></i>
+
+            <div>
+                <p id="line1" class="hidden">- and if it's not you</p>
+                <p id="line2" class="hidden">- no, i'm not a fool</p>
+                <p id="line3" class="hidden">- just wish you would understand</p>
+                <p id="line4" class="hidden">- you know that it's you, my love</p>
+                <p id="line5" class="hidden">- now i wanna know how you feel</p>
+            </div>
+        </section>
+
+        <button id="muteToggle" class="mute-btn">
+            <i class="fa-solid fa-volume-xmark"></i>
+        </button>
+    </main>
+</body>
+
+</html>
