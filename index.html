@@ -3,49 +3,109 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Johnson Ou | DES 157B</title>
-
-    <!-- Normalize CSS for browser compatability -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
-
-    <!-- Add link to any google fonts used here -->
-     <link href="https://fonts.googleapis.com"  rel="preconnect">
-     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
-    <!-- My Styles -->
-    <link href="styles.css" rel="stylesheet">
-
-    <!-- Meta tag for mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnson Ou | DES 157B</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- My Script -->
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
-
 </head>
 
 <body>
-  <main class="page-shell" id="banner">
-    <section class="hero">
-      <div class="intro">
-        <div class="intro-copy">
-          <h1>Johnson Ou</h1>
-          <p class="course">Interactive Media 3 &mdash; DES 157B</p>
-          <p class="term">Spring 2026</p>
+    <main>
+        <header>
+            <div class="intro">
+                <div class="intro-copy">
+                    <h1>Johnson Ou</h1>
+                    <p>Interactive Media 3 &mdash; DES 157B</p>
+                    <p class="term">Spring 2026</p>
+                </div>
+                <button>
+                    <span><i class="fa-solid fa-lightbulb"></i></span>
+                </button>
+            </div>
+
+            <div id="banner">
+                <div class="project-card">
+                    <img class="img-dark" src="images/goldengate.jpg" alt="Golden Gate Bridge" width="400" height="300">
+                    <img class="img-light" src="images/seattle1.jpg" alt="Seattle Pike Place" width="400" height="300">
+                </div>
+                <div class="project-card">
+                    <img class="img-dark" src="images/carnight.jpeg" alt="Car at night" width="400" height="300">
+                    <img class="img-light" src="images/seattle2.jpg" alt="Seattle Apartment" width="400" height="300">
+                </div>
+                <div class="project-card">
+                    <img class="img-dark" src="images/bluehour.jpg" alt="Mount Tam" width="400" height="300">
+                    <img class="img-light" src="images/seattle3.jpg" alt="Mount Rainier" width="400" height="300">
+                </div>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            <div>
+                <section>
+                    <h2>Ministudios</h2>
+                    <ul>
+                        <li><a href="studio1/index.html">Blockbuster Video</a></li>
+                        <li><a href="#">Check Yourself</a></li>
+                        <li><a href="#">Library Liberty</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Toolkit</h2>
+                    <ul>
+                        <li><a href="#">Friends List</a></li>
+                    </ul>
+                </section>
+            </div>
+
+            <div>
+                <section>
+                    <h2>Research</h2>
+                    <ul>
+                        <li><a href="#">Brainstorm</a></li>
+                        <li><a href="#">Competitive Analysis</a></li>
+                        <li><a href="#">Annotated Bibliography</a></li>
+                        <li><a href="#">Feasibility Report</a></li>
+                        <li><a href="#">Usability Results</a></li>
+                    </ul>
+                </section>
+            </div>
+
+            <div>
+                <section>
+                    <h2>Development</h2>
+                    <ul>
+                        <li><a href="#">Proposal</a></li>
+                        <li><a href="#">Sketches</a></li>
+                        <li><a href="#">User Flows</a></li>
+                        <li><a href="#">Design Progress</a></li>
+                        <li><a href="#">LoFi Sketches</a></li>
+                        <li><a href="#">Version 1</a></li>
+                        <li><a href="#">Usability Test</a></li>
+                        <li><a href="#">Version 2</a></li>
+                    </ul>
+                </section>
+            </div>
+
+            <div>
+                <section>
+                    <h2>Capstone</h2>
+                    <ul>
+                        <li><a href="#">Case Study</a></li>
+                        <li><a href="#">Project</a></li>
+                    </ul>
+                </section>
+            </div>
         </div>
-
-        <button class="toggle-pill" id="themeToggle" type="button" aria-label="Toggle accent style" aria-pressed="false">
-          <span class="toggle-knob"><i class="fa-solid fa-lightbulb"></i></span>
-        </button>
-      </div>
-
-      <div class="project-strip" id="projectStrip" aria-label="Featured work"></div>
-    </section>
-
-    <section class="content-grid" id="contentGrid" aria-label="Course work sections"></section>
-  </in>
+    </main>
 </body>
 
 </html>
