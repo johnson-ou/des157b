@@ -1,52 +1,58 @@
 (function () {
     'use strict';
-    console.log('reading js');
+    console.log('reading');
 
-    const myVideo = document.querySelector('#myVideo');
-    const loader = document.querySelector('.loader');
-    const muteBtn = document.querySelector('#muteToggle');
-    const muteIcon = muteBtn.querySelector('i');
-    const line1 = document.querySelector('#line1');
-    const line2 = document.querySelector('#line2');
-    const line3 = document.querySelector('#line3');
-    const line4 = document.querySelector('#line4');
-    const line5 = document.querySelector('#line5');
+    let globalData;
+    let currentIndex = 0;
 
-    // for lyric timing
-    const lyrics = {
-        start: [1, 5, 8, 15, 21],
-        stop: [4, 7, 14, 20, 27],
-        line: [line1, line2, line3, line4, line5]
-    };
-
-    // hide the loader once the video starts playing
-    myVideo.addEventListener('playing', function () {
-        loader.style.display = 'none';
-    });
-
-    // check the video time once per second
-    const intervalID = setInterval(checkTime, 1000);
-
-    function checkTime() {
-        for (let i = 0; i < lyrics.start.length; i++) {
-            if (lyrics.start[i] < myVideo.currentTime && myVideo.currentTime < lyrics.stop[i]) {
-                lyrics.line[i].className = 'showing';
-            } else {
-                lyrics.line[i].className = 'hidden';
-            }
-        }
+    async function getData() {
+        const response = await fetch('music_listening_data.json');
+        const data = await response.json();
+        //console.log(data);
+        globalData = data;
+        updateInterface(currentIndex, globalData);
     }
 
-    // toggle to mute and unmute
-    muteBtn.addEventListener('click', function () {
-        if (myVideo.muted) {
-            myVideo.muted = false;
-            document.body.className = 'unmuted';
-            muteIcon.className = 'fa-solid fa-volume-high';
-        } else {
-            myVideo.muted = true;
-            document.body.className = '';
-            muteIcon.className = 'fa-solid fa-volume-xmark';
+    function updateInterface(index, data) {
+        const scenes = ['time-morning', 'time-midday', 'time-midday', 'time-midday', 'time-evening', 'time-evening', 'time-night', 'time-late-night'];
+        const entry = data[index];
+        document.querySelector('#clock').innerHTML = entry.time;
+        document.querySelector('#activity').innerHTML = entry.activity;
+        document.querySelector('#song-title').innerHTML = entry.songTitle;
+        document.querySelector('#artist').innerHTML = entry.artist;
+        document.querySelector('#album-art').style.backgroundImage = `url(${entry.albumCover})`;
+        document.body.className = scenes[index];
+    }
+
+    //randomly generates 40 stars and drops them into #stars
+    function createStars() {
+        let html = '';
+        for (let i = 0; i < 40; i++) {
+            const top = Math.random() * 60;
+            const left = Math.random() * 100;
+            const size = Math.random() * 2 + 1;
+            html += `<div class="star" style="top: ${top}%; left: ${left}%; width: ${size}px; height: ${size}px;"></div>`;
         }
+        document.querySelector('#stars').innerHTML = html;
+    }
+
+    createStars();
+    getData();
+
+    document.querySelector('#next-btn').addEventListener('click', function () {
+        currentIndex = currentIndex + 1;
+        if (currentIndex >= globalData.length) {
+            currentIndex = 0;
+        }
+        updateInterface(currentIndex, globalData);
     });
+
+    document.querySelector('#prev-btn').addEventListener('click', function () {
+        currentIndex = currentIndex - 1;
+        if (currentIndex < 0) {
+            currentIndex = globalData.length - 1;
+        }
+        updateInterface(currentIndex, globalData);
+    });
+
 })();

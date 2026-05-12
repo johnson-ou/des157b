@@ -1,0 +1,58 @@
+[
+  {
+    "time": "10:00 AM",
+    "activity": "Waking up",
+    "songTitle": "In The Morning",
+    "artist": "Rocco",
+    "albumCover": "images/rocco.jpeg"
+  },
+  {
+    "time": "12:00 PM",
+    "activity": "Commute to Campus",
+    "songTitle": "START OVER",
+    "artist": "Tiffany Day",
+    "albumCover": "images/tiffanyday.jpeg"
+  },
+  {
+    "time": "1:00 PM",
+    "activity": "Lunch at the MU",
+    "songTitle": "Feel It",
+    "artist": "Bixby",
+    "albumCover": "images/bixby.jpeg"
+  },
+  {
+    "time": "3:00 PM",
+    "activity": "Locking in at Volt Coffee",
+    "songTitle": "braincells",
+    "artist": "tomcbumpz",
+    "albumCover": "images/braincells.jpeg"
+  },
+  {
+    "time": "6:00 PM",
+    "activity": "Stroll through the Arboretum",
+    "songTitle": "sunny days",
+    "artist": "wave to earth",
+    "albumCover": "images/w2e.png"
+  },
+  {
+    "time": "7:00 PM",
+    "activity": "Dinner Time",
+    "songTitle": "A PERFECT WORLD",
+    "artist": "The Kid Laroi",
+    "albumCover": "images/laroi.jpg"
+  },
+  {
+    "time": "10:00 PM",
+    "activity": "Gym Session",
+    "songTitle": "on one tonight",
+    "artist": "Gunna",
+    "albumCover": "images/gunna.jpg"
+  },
+  {
+    "time": "2:00 AM",
+    "activity": "Winding Down",
+    "songTitle": "You Are Too Beautiful",
+    "artist": "Grace Carey",
+    "albumCover": "images/grace.jpeg"
+  }
+]
