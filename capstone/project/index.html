@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Air We Share — Capstone Project</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- parse sdk for back4app. has to be a regular script (no defer) so it finishes loading before script.js runs and Parse is available as a global -->
+    <script src="https://unpkg.com/parse@4.3.1/dist/parse.min.js"></script>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ambient particles -->
+    <canvas id="ambientCanvas"></canvas>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="chapter hero">
+            <h1 class="hero-title">
+                <span class="line"><em>The</em> air</span>
+                <span class="line">we <em>share</em></span>
+            </h1>
+        </section>
+
+        <!-- INTRO -->
+        <section class="chapter prose">
+            <p class="kicker">the weight we cannot see</p>
+            <p class="prose-line">Every breath you take contains <em>traces</em> of every fire ever lit.</p>
+            <p class="prose-line">Every drive. Every meal. Every search. Every package. Every air conditioned room.</p>
+            <p class="prose-line"><em>All of it</em> sends carbon into the only sky we have.</p>
+            <p class="prose-line prose-line--small">It used to disperse faster than we made it.
+            </p>
+        </section>
+
+        <!-- STATS -->
+        <section class="chapter stats">
+            <p class="kicker">by the numbers</p>
+            <div class="stats-grid">
+
+                <div class="stat">
+                    <div class="stat-number" data-target="37.4" data-decimals="1">0</div>
+                    <div class="stat-unit">gigatonnes</div>
+                    <div class="stat-label">of CO₂ released into the atmosphere by human activity in 2023</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number" data-target="424" data-decimals="0">0</div>
+                    <div class="stat-unit">parts per million</div>
+                    <div class="stat-label">atmospheric CO₂ — the highest level in roughly 3 million years</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number" data-target="1.45" data-decimals="2" data-prefix="+">0</div>
+                    <div class="stat-unit">degrees celsius</div>
+                    <div class="stat-label">average global temperature increase above pre-industrial levels</div>
+                </div>
+
+            </div>
+            <p class="stats-footnote">sources: Global Carbon Project (2024), NOAA Global Monitoring Lab, WMO State of
+                the Global Climate</p>
+        </section>
+
+        <!-- HORIZONTAL SOURCES -->
+        <section class="chapter horizontal-wrap">
+            <div class="horizontal-track" id="horizontalTrack">
+                <div class="h-intro">
+                    <p class="kicker">where it comes from</p>
+                    <h2 class="h-title">Five chimneys,<br><em>one sky.</em></h2>
+                    <p class="h-sub">global CO₂ emissions, by sector →</p>
+                </div>
+
+                <article class="h-card h-card--energy">
+                    <span class="h-card-index">01</span>
+                    <span class="h-card-pct">34<small>%</small></span>
+                    <h3 class="h-card-title">Energy</h3>
+                    <p class="h-card-body">Coal, oil and gas burned to make electricity and heat. The single largest
+                        source, and the one we know how to replace.</p>
+                </article>
+
+                <article class="h-card h-card--industry">
+                    <span class="h-card-index">02</span>
+                    <span class="h-card-pct">24<small>%</small></span>
+                    <h3 class="h-card-title">Industry</h3>
+                    <p class="h-card-body">Cement, steel, chemicals. The skeleton of the modern world, and also the
+                        hardest
+                        carbon to scrub.</p>
+                </article>
+
+                <article class="h-card h-card--agriculture">
+                    <span class="h-card-index">03</span>
+                    <span class="h-card-pct">22<small>%</small></span>
+                    <h3 class="h-card-title">Agriculture & Land</h3>
+                    <p class="h-card-body">Cows, rice paddies, fertilizer, cleared forests. The carbon hiding inside the
+                        food we eat.</p>
+                </article>
+
+                <article class="h-card h-card--transport">
+                    <span class="h-card-index">04</span>
+                    <span class="h-card-pct">15<small>%</small></span>
+                    <h3 class="h-card-title">Transportation</h3>
+                    <p class="h-card-body">Cars, trucks, planes, ships. The carbon of getting us from place to place.
+                    </p>
+                </article>
+
+                <article class="h-card h-card--buildings">
+                    <span class="h-card-index">05</span>
+                    <span class="h-card-pct">5<small>%</small></span>
+                    <h3 class="h-card-title">Buildings</h3>
+                    <p class="h-card-body">Direct emissions from heating, cooking, and cooling. Quieter,
+                        but everywhere.</p>
+                </article>
+
+                <div class="h-outro">
+                    <p>add them up<br>and you get<br><em>a sky we<br>can't breathe.</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAKES -->
+        <section class="chapter stakes">
+            <p class="kicker">what we stand to lose</p>
+            <div class="stakes-grid">
+                <div class="stake">
+                    <h3>warmer oceans</h3>
+                    <p>Coral reefs that took thousands of years to grow are bleaching in a single summer.</p>
+                </div>
+                <div class="stake">
+                    <h3>thinner ice</h3>
+                    <p>The Arctic is losing roughly 12% of its summer sea ice every decade.</p>
+                </div>
+                <div class="stake">
+                    <h3>wilder weather</h3>
+                    <p>Heat waves, droughts, and floods that used to be once-a-century are arriving once a decade.</p>
+                </div>
+                <div class="stake">
+                    <h3>quieter forests</h3>
+                    <p>About 1 million species face extinction this century, and many before we even name them.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--TRANSITION -->
+        <section class="chapter transition">
+            <p class="kicker">the future is unwritten</p>
+            <p class="transition-line">
+                The future isn't a place we arrive at.
+            </p>
+            <p class="transition-line transition-line--big">
+                It's a place <em>we build.</em>
+            </p>
+            <p class="transition-line transition-line--small">
+                Imagine a tree where every visitor leaves a wish for what comes next.
+            </p>
+        </section>
+
+        <!-- WISH TREE -->
+        <section class="chapter forest" id="forestSection">
+            <div id="forestCanvasWrap">
+                <canvas id="forestCanvas"></canvas>
+
+                <!-- soft gradient at the top so cut-off treetops fade out instead of clipping abruptly -->
+                <div class="forest-fade-top"></div>
+
+                <!-- instructions box -->
+                <div class="forest-instructions" id="forestInstructions">
+                    <p class="kicker">leave your wish</p>
+                    <h2>Leave a wish<br>for the future.</h2>
+                    <p class="forest-help">
+                        <span class="key-hint">drag</span> to orbit ・
+                        <span class="key-hint">scroll</span> to zoom ・
+                        <span class="key-hint">click</span> anywhere to leave a wish
+                    </p>
+                    <p class="forest-count" id="wishCount">— wishes growing here —</p>
+                </div>
+
+                <!-- reset view button -->
+                <button class="forest-reset" id="forestReset" type="button" title="reset view">↻ reset view</button>
+
+                <!-- wish composer modal -->
+                <div class="composer" id="composer">
+                    <div class="composer-card">
+                        <p class="composer-eyebrow">a wish for the future</p>
+                        <textarea id="composerText" maxlength="140" placeholder="i hope that…" rows="3"></textarea>
+                        <div class="composer-row">
+                            <input id="composerName" type="text" maxlength="20" placeholder="from (optional)">
+                            <span class="composer-count"><span id="charCount">0</span>/140</span>
+                        </div>
+                        <div class="composer-actions">
+                            <button type="button" class="btn btn-ghost" id="composerCancel">cancel</button>
+                            <button type="button" class="btn btn-primary" id="composerSubmit">leave it here →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- floating labels for placed wishes get appended here by JS -->
+                <div id="wishLabels" class="wish-labels"></div>
+
+                <!-- read a wish tooltip -->
+                <div class="wish-reader" id="wishReader">
+                    <p class="wish-reader-text" id="wishReaderText"></p>
+                    <p class="wish-reader-meta" id="wishReaderMeta"></p>
+                </div>
+            </div>
+
+            <!-- colophon -->
+            <footer class="colophon">
+                <p class="kicker">Thanks for stopping by!</p>
+                <p>
+                    Made for <em>DES 157B</em> Interactive Media 3 Captstone project.
+                    Built with HTML, GSAP, Three.js, and Back4App. Forest scene by <a href="https://sketchfab.com/"
+                        target="_blank" rel="noopener">Sketchfab</a> (CC-BY).
+                </p>
+                <p class="colophon-sign">— designed &amp; built, Johnson Ou 2026</p>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- click + hold these to scroll past the forest section.
+         JS shows/hides them based on whether the forest is in view. -->
+    <div class="scroll-arrows" id="scrollArrows">
+        <button class="scroll-arrow" id="scrollUp" type="button" title="scroll up">↑</button>
+        <button class="scroll-arrow" id="scrollDown" type="button" title="scroll down">↓</button>
+    </div>
+</body>
+
+</html>

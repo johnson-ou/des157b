@@ -1,0 +1,778 @@
+/* basic reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    background: #0c0e0d;
+    color: #ece4d4;
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.55;
+    overflow-x: hidden;
+}
+
+body {
+    /* subtle glow at the top of the page */
+    background-image: radial-gradient(ellipse at top, #1a1a18 0%, #0c0e0d 60%);
+    min-height: 100vh;
+}
+
+a {
+    color: #ece4d4;
+    text-decoration: underline;
+}
+a:hover {
+    color: #d97742;
+}
+
+em {
+    font-style: italic;
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+}
+
+#ambientCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* makes main sit above the ambient canvas */
+main {
+    position: relative;
+    z-index: 2;
+}
+
+/* every section uses this layout */
+.chapter {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+/* tiny uppercase subheader at the top of each section */
+.kicker {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #8a8478;
+    margin-bottom: 56px;
+}
+
+/* hero */
+.hero {
+    min-height: 100vh;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+
+.hero-title {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 180px;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    text-align: center;
+}
+.hero-title .line {
+    display: block;
+}
+.hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: #cfc6b3;
+}
+
+/* intro */
+.prose {
+    max-width: 920px;
+}
+.prose-line {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 50px;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin-bottom: 36px;
+    /* start hidden, gsap fades these in */
+    opacity: 0;
+    transform: translateY(20px);
+}
+.prose-line--small {
+    font-size: 20px;
+    font-family: 'Newsreader', Georgia, serif;
+    font-style: italic;
+    color: #cfc6b3;
+    max-width: 480px;
+    margin-top: 24px;
+}
+
+/* stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px 32px;
+    margin-bottom: 80px;
+}
+.stat {
+    border-top: 1px solid rgba(236, 228, 212, 0.18);
+    padding-top: 28px;
+}
+.stat-number {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 80px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #d97742;
+    margin-bottom: 8px;
+}
+.stat-unit {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #cfc6b3;
+    margin-bottom: 14px;
+}
+.stat-label {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #cfc6b3;
+    max-width: 28ch;
+}
+.stats-footnote {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8a8478;
+}
+
+/* horizontal scroll section */
+/* this is the section that scrolls sideways when u scroll down,
+   gsap handles the actual translate */
+.horizontal-wrap {
+    max-width: none;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* the track is wider than the screen, gsap drags it left as u scroll.
+   width is hand-calculated: 460 intro + 5*360 cards + 480 outro + 6*48 gaps + 2*64 padding = ~3156px,
+   so 3200 gives a little breathing room */
+.horizontal-track {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 3200px;
+    align-items: center;
+    padding: 0 64px;
+    gap: 48px;
+}
+
+.h-intro {
+    width: 460px;
+    flex: 0 0 460px;
+    padding-right: 24px;
+}
+.h-title {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 76px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+}
+.h-sub {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a8478;
+}
+
+.h-card {
+    flex: 0 0 360px;
+    width: 360px;
+    height: 480px;
+    background: #14171a;
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    border-radius: 2px;
+    padding: 40px 36px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease-out;
+}
+.h-card:hover {
+    transform: translateY(-8px);
+}
+/* the colored glow blob in the top-right of each card. each card has its own
+   color, set by a modifier class below */
+.h-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 380px;
+    height: 380px;
+    opacity: 0.18;
+    pointer-events: none;
+}
+.h-card-index {
+    display: block;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: #8a8478;
+    margin-bottom: 80px;
+}
+.h-card-pct {
+    display: block;
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 132px;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin-bottom: 36px;
+}
+.h-card-pct small {
+    font-size: 38px;
+    margin-left: 4px;
+    color: #cfc6b3;
+}
+.h-card-title {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 30px;
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: #ece4d4;
+}
+.h-card-body {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #cfc6b3;
+}
+
+/* per-card colors. each card gets its own number color + glow color,
+   walking from warm/bad (energy) to cool/less-bad (buildings) */
+.h-card--energy .h-card-pct { color: #d97742; }
+.h-card--energy::before { background: radial-gradient(circle, #d97742 0%, transparent 65%); }
+
+.h-card--industry .h-card-pct { color: #b85440; }
+.h-card--industry::before { background: radial-gradient(circle, #b85440 0%, transparent 65%); }
+
+.h-card--agriculture .h-card-pct { color: #c97350; }
+.h-card--agriculture::before { background: radial-gradient(circle, #c97350 0%, transparent 65%); }
+
+.h-card--transport .h-card-pct { color: #a8c47a; }
+.h-card--transport::before { background: radial-gradient(circle, #a8c47a 0%, transparent 65%); }
+
+.h-card--buildings .h-card-pct { color: #7ba87a; }
+.h-card--buildings::before { background: radial-gradient(circle, #7ba87a 0%, transparent 65%); }
+
+.h-outro {
+    flex: 0 0 480px;
+    width: 480px;
+    padding-left: 24px;
+    padding-right: 64px;
+}
+.h-outro p {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 64px;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+}
+
+/* stakes */
+.stakes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px 64px;
+    max-width: 920px;
+}
+.stake {
+    border-left: 1px solid rgba(236, 228, 212, 0.18);
+    padding-left: 24px;
+}
+.stake h3 {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #d97742;
+}
+.stake p {
+    font-size: 16px;
+    color: #cfc6b3;
+    max-width: 36ch;
+}
+
+/* transition */
+.transition {
+    text-align: center;
+    align-items: center;
+}
+.transition-line {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+}
+.transition-line--big {
+    font-size: 120px;
+    color: #7ba87a;
+    margin-bottom: 80px;
+}
+.transition-line--big em {
+    color: #7ba87a;
+}
+.transition-line--small {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #cfc6b3;
+    max-width: 580px;
+    margin: 0 auto 16px;
+}
+
+/* forest 3d section */
+.forest {
+    max-width: none;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    min-height: auto;
+    background: linear-gradient(to bottom, #0c0e0d 0%, #0a1410 100%);
+}
+
+#forestCanvasWrap {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#forestCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+}
+#forestCanvas:active {
+    cursor: grabbing;
+}
+
+/* fades the top edge of the 3d canvas into the page background so cut-off treetops
+   dont look like a hard line when the user zooms in*/
+.forest-fade-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, #0c0e0d 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* the instructions box*/
+.forest-instructions {
+    position: absolute;
+    top: 56px;
+    left: 64px;
+    z-index: 5;
+    max-width: 380px;
+    background: rgba(12, 14, 13, 0.92);
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    border-radius: 2px;
+    padding: 28px 28px 24px;
+}
+.forest-instructions .kicker {
+    margin-bottom: 14px;
+}
+.forest-instructions h2 {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    color: #7ba87a;
+}
+.forest-help {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8a8478;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+.key-hint {
+    color: #ece4d4;
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+.forest-count {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7ba87a;
+}
+
+/* reset button */
+.forest-reset {
+    position: absolute;
+    bottom: 56px;
+    right: 64px;
+    z-index: 5;
+    background: rgba(12, 14, 13, 0.92);
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    color: #ece4d4;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+}
+.forest-reset:hover {
+    border-color: #7ba87a;
+    color: #7ba87a;
+}
+
+/* wish composer modal */
+.composer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(8, 10, 9, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.composer.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.composer-card {
+    background: #0c0e0d;
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    border-radius: 4px;
+    width: 480px;
+    max-width: 88vw;
+    padding: 36px 36px 28px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+.composer-eyebrow {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #7ba87a;
+    margin-bottom: 18px;
+}
+#composerText {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(236, 228, 212, 0.18);
+    color: #ece4d4;
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 1.3;
+    padding: 0 0 14px;
+    resize: none;
+    outline: none;
+}
+#composerText::placeholder {
+    color: #8a8478;
+    font-style: italic;
+}
+#composerText:focus {
+    border-bottom-color: #7ba87a;
+}
+.composer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 18px;
+}
+#composerName {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(236, 228, 212, 0.18);
+    color: #ece4d4;
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 14px;
+    padding: 6px 0;
+    outline: none;
+}
+#composerName:focus {
+    border-bottom-color: #7ba87a;
+}
+#composerName::placeholder {
+    color: #8a8478;
+    font-style: italic;
+}
+.composer-count {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8a8478;
+}
+.composer-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 28px;
+}
+
+.btn {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 2px;
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    background: transparent;
+    color: #ece4d4;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-ghost:hover {
+    border-color: #8a8478;
+}
+.btn-primary {
+    background: #7ba87a;
+    border-color: #7ba87a;
+    color: #0c0e0d;
+}
+.btn-primary:hover {
+    background: #ece4d4;
+    border-color: #ece4d4;
+}
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* glowing wish dots */
+.wish-labels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+.wish-label {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    margin-top: -6px;
+    border-radius: 50%;
+    background: #7ba87a;
+    box-shadow: 0 0 14px #7ba87a, 0 0 28px rgba(123, 168, 122, 0.45);
+    border: none;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+    animation: wishGlow 3s ease-in-out infinite;
+}
+.wish-label:hover {
+    transform: scale(1.6);
+}
+/* fresh wishes pop in with a bloom animation, then go back to the glow loop */
+.wish-label.is-new {
+    animation: wishBloom 1.2s ease-out, wishGlow 3s ease-in-out infinite 1.2s;
+}
+@keyframes wishGlow {
+    0%, 100% {
+        box-shadow: 0 0 14px #7ba87a, 0 0 28px rgba(123, 168, 122, 0.45);
+    }
+    50% {
+        box-shadow: 0 0 22px #7ba87a, 0 0 44px rgba(123, 168, 122, 0.7);
+    }
+}
+@keyframes wishBloom {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* lil tooltip that shows up when u hover a wish dot */
+.wish-reader {
+    position: absolute;
+    z-index: 15;
+    background: rgba(12, 14, 13, 0.95);
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    border-radius: 2px;
+    padding: 16px 18px 14px;
+    max-width: 280px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+.wish-reader.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.wish-reader-text {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.35;
+    color: #ece4d4;
+    margin-bottom: 8px;
+}
+.wish-reader-meta {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7ba87a;
+}
+
+/* scroll arrows */
+/* click and hold to scroll past the forest section, since the 3d canvas eats
+   the scroll wheel for zooming. JS toggles .is-visible when the forest is in view. */
+.scroll-arrows {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    /* shift up by half its own height so it sits centered vertically */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+.scroll-arrows.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.scroll-arrow {
+    width: 44px;
+    height: 44px;
+    background: rgba(12, 14, 13, 0.92);
+    border: 1px solid rgba(236, 228, 212, 0.18);
+    color: #ece4d4;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* no default browser blue outline when clicked */
+    outline: none;
+}
+.scroll-arrow:hover,
+.scroll-arrow:active {
+    border-color: #7ba87a;
+    color: #7ba87a;
+}
+
+/* colophon */
+.colophon {
+    padding: 80px 64px;
+    max-width: 1180px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(236, 228, 212, 0.18);
+}
+.colophon p {
+    color: #cfc6b3;
+    font-size: 15px;
+    max-width: 620px;
+    margin-bottom: 12px;
+}
+.colophon .kicker {
+    margin-bottom: 24px;
+}
+.colophon-sign {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a8478;
+    margin-top: 32px;
+}
+
+/* shows "rendering forest…" while the 3d model loads, JS adds this class */
+.is-loading-3d::after {
+    content: 'rendering forest…';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a8478;
+    background: #0c0e0d;
+    z-index: 10;
+}
