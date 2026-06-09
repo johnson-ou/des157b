@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>capstone — feasibility report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="feasibility.css">
+</head>
+
+<body>
+
+    <main>
+
+        <header>
+            <p class="label">des157b · capstone research</p>
+            <h1>Feasibility Report</h1>
+            <p class="sub">the air we share</p>
+        </header>
+
+        <article>
+
+            <section>
+                <h2>Features</h2>
+                <ul>
+                    <li>Scroll-driven narrative with multiple chapters that reveal as the user scrolls down</li>
+                    <li>Animated lines that fade and rise into view at a smooth pace</li>
+                    <li>Counter-animated statistics that count up from zero as they enter the viewport</li>
+                    <li>Horizontally-pinned scroll section where the page scrolls sideways to reveal five industry
+                        emission-source cards</li>
+                    <li>Staggered grid of "what's at stake" items that animate in on scroll</li>
+                    <li>Three.js 3D forest scene, a GLTF model the user can orbit and zoom</li>
+                    <li>Click-to-place wish mechanic using raycasting to detect where the user clicks in 3D space and
+                        opens a write-a-wish form</li>
+                    <li>Communal wish storage via Back4App — wishes can be seen across sessions and are visible to all
+                        visitors</li>
+                    <li>Glowing wish dots projected from 3D positions onto the screen, with a hover tooltip that shows
+                        the wish text</li>
+                    <li>Ambient floating particle canvas behind all content, with color that shifts from warm to cool as
+                        the user scrolls</li>
+                    <li>Click-and-hold up/down arrow buttons to scroll past the 3D section without triggering the camera
+                        zoom</li>
+                    <li>Top fade gradient on the forest scene so zoomed-in treetops dissolve rather than clip</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Technologies Required</h2>
+                <ul>
+                    <li><strong>HTML / CSS / JavaScript</strong>: base layer for all structure, styling, and behavior
+                    </li>
+                    <li><strong>GSAP + ScrollTrigger</strong>: fires and scrubs animations as the user scrolls; also
+                        handles the horizontal pin section, stat counter, and the reset-view camera</li>
+                    <li><strong>Three.js</strong>: 3D renderer, scene, camera, lights, fog, GLTFLoader for the forest
+                        model, OrbitControls for drag and zoom, and Raycaster for detecting wish placement clicks</li>
+                    <li><strong>Dynamic import()</strong>: loads Three.js modules inside the IIFE without needing a
+                        module-type script tag</li>
+                    <li><strong>HTML importmap</strong> — resolves the "three" and "three/addons/" specifiers</li>
+                    <li><strong>Back4App</strong>: cloud database for storing and retrieving wishes across all visitors
+                    </li>
+                    <li><strong>Canvas API + requestAnimationFrame</strong>: drives the ambient particle background;
+                        particles drift upward and the color change based on scroll depth</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Skill Assessment</h2>
+                <ul>
+                    <li><strong>HTML + CSS</strong>: bulk of the project; comfortable, no concerns</li>
+                    <li><strong>Vanilla JavaScript</strong>: comfortable with what we covered in class; more advanced
+                        patterns like IIFE scoping, dynamic imports, and for...of loops were learned from MDN
+                        documentation</li>
+                    <li><strong>GSAP + ScrollTrigger</strong>: had no prior experience, but the documentation was
+                        thorough</li>
+                    <li><strong>Three.js</strong>: the steepest learning curve of the project; GLTFLoader,
+                        OrbitControls, raycasting, bounding-box math, and 3D-to-2D projection all required significant
+                        time reading the Three.js documentation and external tutorials</li>
+                    <li><strong>Back4App</strong>: relatively straightforward once the SDK was loaded correctly;</li>
+                    <li><strong>Canvas API</strong>: basic drawing methods were approachable; the devicePixelRatio
+                        scaling for sharp rendering on retina screens required a bit of extra research</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Difficulties</h2>
+                <ul>
+                    <li><strong>Three.js learning curve</strong>: getting the GLTF model loaded, scaled to a reasonable
+                        size, and oriented so the camera faces the front of the house required inspecting the raw GLTF
+                        file's accessor data to find which direction the model was facing; this took much longer than
+                        expected</li>
+                    <li><strong>Scroll-zoom conflict</strong>: OrbitControls captures the scroll wheel for camera
+                        zooming, which made it difficult for users to scroll past the forest section normally; solved
+                        this by adding floating arrow buttons on the right side of the screen that only appear when the
+                        forest section is in view</li>
+                    <li><strong>3D-to-2D wish projection</strong>: placing HTML wish dots at the correct screen position
+                        required calling camera.project() on each wish's Vector3 every render frame and converting the
+                        result from normalized device coordinates to pixel coordinates; this math was found in Three.js
+                        documentation and community examples</li>
+                </ul>
+            </section>
+
+        </article>
+
+    </main>
+
+</body>
+
+</html>
