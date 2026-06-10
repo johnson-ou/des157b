@@ -11,14 +11,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- parse sdk for back4app. has to be a regular script (no defer) so it finishes loading before script.js runs and Parse is available as a global -->
     <script src="https://unpkg.com/parse@4.3.1/dist/parse.min.js"></script>
-
 
     <script type="importmap">
     {
@@ -33,7 +32,7 @@
 
 <body>
 
-    <!-- ambient particles -->
+    <!-- ambient particles canvas -->
     <canvas id="ambientCanvas"></canvas>
 
     <main>
@@ -106,8 +105,7 @@
                     <span class="h-card-pct">24<small>%</small></span>
                     <h3 class="h-card-title">Industry</h3>
                     <p class="h-card-body">Cement, steel, chemicals. The skeleton of the modern world, and also the
-                        hardest
-                        carbon to scrub.</p>
+                        hardest carbon to scrub.</p>
                 </article>
 
                 <article class="h-card h-card--agriculture">
@@ -163,7 +161,7 @@
             </div>
         </section>
 
-        <!--TRANSITION -->
+        <!-- TRANSITION -->
         <section class="chapter transition">
             <p class="kicker">the future is unwritten</p>
             <p class="transition-line">
@@ -181,9 +179,6 @@
         <section class="chapter forest" id="forestSection">
             <div id="forestCanvasWrap">
                 <canvas id="forestCanvas"></canvas>
-
-                <!-- soft gradient at the top so cut-off treetops fade out instead of clipping abruptly -->
-                <div class="forest-fade-top"></div>
 
                 <!-- instructions box -->
                 <div class="forest-instructions" id="forestInstructions">
@@ -216,21 +211,15 @@
                     </div>
                 </div>
 
-                <!-- floating labels for placed wishes get appended here by JS -->
+                <!-- floating wish dots get appended here by JS -->
                 <div id="wishLabels" class="wish-labels"></div>
-
-                <!-- read a wish tooltip -->
-                <div class="wish-reader" id="wishReader">
-                    <p class="wish-reader-text" id="wishReaderText"></p>
-                    <p class="wish-reader-meta" id="wishReaderMeta"></p>
-                </div>
             </div>
 
             <!-- colophon -->
             <footer class="colophon">
                 <p class="kicker">Thanks for stopping by!</p>
                 <p>
-                    Made for <em>DES 157B</em> Interactive Media 3 Captstone project.
+                    Made for <em>DES 157B</em> Interactive Media 3 Capstone project.
                     Built with HTML, GSAP, Three.js, and Back4App. Forest scene by <a href="https://sketchfab.com/"
                         target="_blank" rel="noopener">Sketchfab</a> (CC-BY).
                 </p>
@@ -240,12 +229,6 @@
 
     </main>
 
-    <!-- click + hold these to scroll past the forest section.
-         JS shows/hides them based on whether the forest is in view. -->
-    <div class="scroll-arrows" id="scrollArrows">
-        <button class="scroll-arrow" id="scrollUp" type="button" title="scroll up">↑</button>
-        <button class="scroll-arrow" id="scrollDown" type="button" title="scroll down">↓</button>
-    </div>
 </body>
 
 </html>
